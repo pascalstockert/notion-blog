@@ -1,10 +1,13 @@
 import * as functions from 'firebase-functions';
 import * as express from 'express';
 
-import * as Endpoints from './classes';
+import { Endpoint } from './classes/Endpoint.class';
+import { NotionService } from './classes/NotionService.class';
 
 const app = express();
 
-new Endpoints.Docs( app, 'docs' );
+new Endpoint( app, 'api' )
+  .addGetRoute( 'posts', NotionService.queryPosts )
+  .addGetRoute( 'posts/:postId', NotionService.queryPostById );
 
-exports.app = functions.https.onRequest( app );
+exports.api = functions.https.onRequest( app );
