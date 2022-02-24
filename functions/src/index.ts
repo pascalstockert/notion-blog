@@ -1,8 +1,8 @@
 import * as functions from 'firebase-functions';
 import * as express from 'express';
 
-import { Endpoint } from './classes/Endpoint.class';
-import { NotionService } from './classes/NotionService.class';
+import { Endpoint } from './classes/endpoint.class';
+import { NotionService } from './classes/notion-service.class';
 
 const app = express();
 
