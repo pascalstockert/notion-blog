@@ -1,0 +1,24 @@
+{
+  "name": "notion-blog",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "serve": "webpack serve --config webpack.config.dev.js",
+    "build": "webpack --config webpack.config.dev.js",
+    "build:prod": "webpack --config webpack.config.prod.js",
+    "watch:scss": "sass --watch src/scss/style.scss static/css/style.css",
+    "build:scss": "sass src/scss/style.scss static/css/style.css"
+  },
+  "devDependencies": {
+    "sass": "^1.49.9",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "dependencies": {
+    "css-loader": "^6.6.0",
+    "dotenv": "^16.0.0",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2"
+  }
+}

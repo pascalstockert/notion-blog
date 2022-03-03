@@ -28,16 +28,25 @@ export class NotionService {
         ]
       }
     } )
-      .then( query => { res.status( 200 ).send( query ) } )
+      .then( query => { res.set('Access-Control-Allow-Origin', '*').status( 200 ).send( query ) } )
       .catch( err => { res.status( 500 ).send( err ) } );
   }
 
-  static queryPostById( req: any, res: any ): void {
+  static queryPost( req: any, res: any ): void {
+    const postId = String( req.params.postId );
+    NotionService.notionClient.pages.retrieve( {
+      page_id: postId
+    } )
+      .then( query => { res.set('Access-Control-Allow-Origin', '*').status( 200 ).send( query ) } )
+      .catch( err => { res.status( 500 ).send( err ) } );
+  }
+
+  static queryPostBlocksById( req: any, res: any ): void {
     const postId = String( req.params.postId );
     NotionService.notionClient.blocks.children.list( {
       block_id: postId
     } )
-      .then( query => { res.status( 200 ).send( query ) } )
+      .then( query => { res.set('Access-Control-Allow-Origin', '*').status( 200 ).send( query ) } )
       .catch( err => { res.status( 500 ).send( err ) } );
   }
 
