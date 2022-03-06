@@ -1,10 +1,17 @@
 import * as functions from 'firebase-functions';
 import * as express from 'express';
+import * as cors from 'cors';
 
-import * as Endpoints from './classes';
+import { Endpoint } from './classes/endpoint.class';
+import { NotionService } from './classes/notion-service.class';
 
 const app = express();
+app.use( cors( { origin: true } ) );
 
-new Endpoints.Docs( app, 'docs' );
+new Endpoint( app, 'api' )
+  .addGetRoute( 'posts', NotionService.queryPosts )
+  .addGetRoute( 'posts/:postId', NotionService.queryPost )
+  .addGetRoute( 'blocks/:postId', NotionService.queryPostBlocksById );
 
-exports.app = functions.https.onRequest( app );
+
+exports.api = functions.https.onRequest( app );

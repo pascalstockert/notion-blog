@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="../css/style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pasu</title>
 </head>
@@ -17,11 +17,13 @@
     <div id="card"
          class="w-100 br-8 shadow z-base">
 
-        <div class="header"></div>
+        <div class="post-header"></div>
 
         <div class="p-32">
 
-            <h1>Hello 👋</h1>
+            <h1>
+                <!-- injected through js -->
+            </h1>
 
             <p>
                 Hi, I'm Pascal "Pasu" Stockert - a web developer based in Leipzig, Germany!<br>
@@ -39,21 +41,12 @@
                 Let's pretend I'm going for quality over quantity!
             </p>
 
-            <h2>My latest posts</h2>
-
-            <div class="post-preview">
-                <!-- injected through js -->
-            </div>
-
-            <a href="pages/post.html"
-               class="paragraph text-right load-on-propagate">Show all</a>
-
         </div>
 
     </div>
 </div>
 
-<script type="module" src="main.js"></script>
+<script type="module" src="../main.js"></script>
 </body>
 
 </html>

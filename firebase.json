@@ -9,14 +9,30 @@
     ]
   },
   "hosting": {
-    "public": "dist",
+    "public": "site/static",
+    "cleanUrls": true,
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "api/**",
+        "function": "api"
+      },
+      {
+        "source": "/posts/**",
+        "destination": "/pages/post-detail.html"
+      }
     ]
   },
   "storage": {
     "rules": "storage.rules"
+  },
+  "emulators": {
+    "firestore": {
+      "port": "8088"
+    }
   }
 }
