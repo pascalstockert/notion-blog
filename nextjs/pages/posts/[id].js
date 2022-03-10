@@ -1,38 +1,43 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 
-export default function Post({ data }) {
-
-  const router = useRouter();
-  const { id } = router.query;
-
+export default function Post( { postData, postBlocks } ) {
+  console.log( { postData, postBlocks } );
   return (
     <>
 
       <Head>
-        <title>{data.title}</title>
-        <meta name="description" content={data.title}></meta>
+        <title>Placeholder</title>
+        <meta name="description" content="" />
       </Head>
 
-      <h1>{data.title}</h1>
-      <p>#{data.id}</p>
+      <h1>Placeholder</h1>
 
     </>
   )
 }
 
-export async function getStaticProps({ params }) {
-  const req = await fetch(`http://localhost:3000/${params.id}.json`);
-  const data = await req.json();
+export async function getStaticProps( { params } ) {
+  const postDataRequest = fetch( `${ process.env.API_ROOT }/posts/${ params.id }` );
+  const postBlocksRequest = fetch( `${ process.env.API_ROOT }/blocks/${ params.id }` );
+
+  const [ postData, postBlocks ] = await Promise.all(
+    ( await Promise.all( [ postDataRequest, postBlocksRequest ] ) )
+      .map( response => response.json() )
+  );
 
   return {
-    props: { data }
+    props: { postData, postBlocks: postBlocks.results }
   };
 
 }
 
 export async function getStaticPaths() {
-  const paths = [{ params: { id: 'test' } }];
+  const req = await fetch( `${ process.env.API_ROOT }/posts?limit=999` );
+  const data = await req.json();
+
+  const paths = data.results.map( page => {
+    return { params: { id: page.id } };
+  } )
 
   return {
     paths,
