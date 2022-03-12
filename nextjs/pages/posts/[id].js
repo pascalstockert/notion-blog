@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { getPages, getPage, getPageBlocks } from '../../helpers/notion.helper';
 
 export default function Post( { postData, postBlocks } ) {
   console.log( { postData, postBlocks } );
@@ -17,13 +18,10 @@ export default function Post( { postData, postBlocks } ) {
 }
 
 export async function getStaticProps( { params } ) {
-  const postDataRequest = fetch( `${ process.env.API_ROOT }/posts/${ params.id }` );
-  const postBlocksRequest = fetch( `${ process.env.API_ROOT }/blocks/${ params.id }` );
+  const postDataRequest = getPage( params.id );
+  const postBlocksRequest = getPageBlocks( params.id );
 
-  const [ postData, postBlocks ] = await Promise.all(
-    ( await Promise.all( [ postDataRequest, postBlocksRequest ] ) )
-      .map( response => response.json() )
-  );
+  const [ postData, postBlocks ] = await Promise.all( [ postDataRequest, postBlocksRequest ] );
 
   return {
     props: { postData, postBlocks: postBlocks.results },
@@ -33,15 +31,16 @@ export async function getStaticProps( { params } ) {
 }
 
 export async function getStaticPaths() {
-  const req = await fetch( `${ process.env.API_ROOT }/posts?limit=999` );
-  const data = await req.json();
 
-  const paths = data.results.map( page => {
+  const query = await getPages( 999 );
+
+  const paths = query.results.map( page => {
     return { params: { id: page.id } };
-  } )
+  } );
 
   return {
     paths,
     fallback: false,
   };
+
 }
