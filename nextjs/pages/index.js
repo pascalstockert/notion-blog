@@ -1,6 +1,17 @@
 import Head from 'next/head'
+import { LazyImageModule } from '/modules/lazy-image/lazy-image.module';
 
 export default function Home() {
+  const images = [
+    'joey-1',
+    'joey-2',
+    'joey-3',
+    'joey-4',
+    'joey-5',
+    'joey-6',
+    'landscape-1',
+  ].map( image => `/images/${ image }.jpg` );
+
   return (
     <div className="container">
 
@@ -9,7 +20,7 @@ export default function Home() {
       <div id="card"
            className="w-100 br-8 shadow z-base loaded">
 
-        <div className="header"></div>
+        <LazyImageModule src={ images } className="header" />
 
         <div className="p-32">
 

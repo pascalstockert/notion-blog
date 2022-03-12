@@ -4,6 +4,7 @@ module.exports = {
   sassOptions: {
     includePaths: [
       path.join( __dirname, 'scss' ),
+      path.join( __dirname, 'components' ),
     ],
   },
 };
