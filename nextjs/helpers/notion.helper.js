@@ -1,4 +1,8 @@
 import { notionClient } from './clients.helper';
+import { ParagraphModule } from '../modules/notion-blocks/paragraph.module';
+import { ImageModule } from '../modules/notion-blocks/image.module';
+
+// NOTION API HELPERS //
 
 export const getPages = ( limit ) => {
   return notionClient.databases.query( {
@@ -34,3 +38,24 @@ export const getPageBlocks = ( id ) => {
     block_id: id
   } );
 }
+
+// PAGE INTERACTION //
+
+export const getPageTitle = ( page ) => page.properties.Page.title[0].plain_text;
+
+export const getPageCover = ( page ) => page.cover.file.url;
+
+// BLOCK INTERACTION //
+
+export const resolveNotionBlock = ( block ) => {
+  switch ( block.type ) {
+    case 'paragraph':
+      return <ParagraphModule block={ block } key={ block.id } />;
+    case 'image':
+      return <ImageModule block={ block } key={ block.id } />;
+  }
+};
+
+export const getBlockParagraph = ( block ) => block.paragraph.rich_text[0].plain_text;
+
+export const getBlockImageUrl = ( block ) => block.image.file.url;

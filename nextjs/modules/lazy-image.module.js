@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { isIterable } from '/helpers/utility.helper';
+import { isIterable, isString } from '/helpers/utility.helper';
 
 export const LazyImageModule = ( props ) => {
   const [ imageSrc, setImageSrc ] = useState( '' );
@@ -11,10 +11,10 @@ export const LazyImageModule = ( props ) => {
   useEffect( () => {
     setRandomLazyClass( `lazy-color-${ Math.max( 1, Math.floor( Math.random() * 10 ) ) }` );
 
-    if ( isIterable( src ) ) {
-      setImageSrc( src[ Math.max( 0, Math.floor( Math.random() * ( src.length - 1 ) ) ) ] )
-    } else {
+    if ( isString( src ) ) {
       setImageSrc( src );
+    } else {
+      setImageSrc( src[ Math.max( 0, Math.floor( Math.random() * ( src.length - 1 ) ) ) ] )
     }
 
   }, [] );

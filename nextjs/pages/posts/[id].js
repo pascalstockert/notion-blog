@@ -1,37 +1,49 @@
 import Head from 'next/head';
-import { getPages, getPage, getPageBlocks } from '../../helpers/notion.helper';
+import { getPages, getPage, getPageBlocks, getPageTitle, getPageCover, resolveNotionBlock } from '../../helpers/notion.helper';
+import { LazyImageModule } from '../../modules/lazy-image.module';
 
-export default function Post( { postData, postBlocks } ) {
-  console.log( { postData, postBlocks } );
+export default function Post( { page, pageBlocks } ) {
+  console.log( { page, pageBlocks } );
+
+  const resolvedBlocks = pageBlocks.map( block => resolveNotionBlock( block ) );
+
   return (
-    <>
+    <div className="container">
 
-      <Head>
-        <title>Placeholder</title>
-        <meta name="description" content="" />
-      </Head>
+      <div id="card"
+           className="w-100 br-8 shadow z-base loaded">
 
-      <h1>Placeholder</h1>
+        <LazyImageModule src={ getPageCover( page ) }
+                         height={ '256px' }
+                         className="header" />
 
-    </>
-  )
+        <div className="p-32">
+
+          <h1>{ getPageTitle( page ) }</h1>
+
+          { resolvedBlocks }
+
+        </div>
+
+      </div>
+    </div>
+  );
 }
 
 export async function getStaticProps( { params } ) {
-  const postDataRequest = getPage( params.id );
-  const postBlocksRequest = getPageBlocks( params.id );
+  const pageRequest = getPage( params.id );
+  const pageBlocksRequest = getPageBlocks( params.id );
 
-  const [ postData, postBlocks ] = await Promise.all( [ postDataRequest, postBlocksRequest ] );
+  const [ page, pageBlocks ] = await Promise.all( [ pageRequest, pageBlocksRequest ] );
 
   return {
-    props: { postData, postBlocks: postBlocks.results },
+    props: { page, pageBlocks: pageBlocks.results },
     revalidate: 86400,
   };
 
 }
 
 export async function getStaticPaths() {
-
   const query = await getPages( 999 );
 
   const paths = query.results.map( page => {

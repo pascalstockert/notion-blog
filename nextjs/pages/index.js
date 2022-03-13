@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { LazyImageModule } from '/modules/lazy-image/lazy-image.module';
+import { LazyImageModule } from '/modules/lazy-image.module';
 
 export default function Home() {
   const images = [
@@ -53,5 +53,5 @@ export default function Home() {
 
       </div>
     </div>
-  )
+  );
 }
