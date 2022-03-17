@@ -20,7 +20,9 @@ export default function Home() {
       <div id="card"
            className="w-100 br-8 shadow z-base loaded">
 
-        <LazyImageModule src={ images } className="header" />
+        <LazyImageModule src={ images }
+                         className="header"
+                         height="384px" />
 
         <div className="p-32">
 

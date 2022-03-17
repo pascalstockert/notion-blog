@@ -5,6 +5,7 @@ export const ImageModule = ( props ) => {
   const { block } = props;
 
   return (
-    <LazyImageModule src={ getBlockImageUrl( block ) } className="post-image" />
+    <LazyImageModule src={ getBlockImageUrl( block ) }
+                     className="post-image" />
   )
 }

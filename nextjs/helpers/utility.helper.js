@@ -13,3 +13,7 @@ export const isString = ( obj ) => {
 
   return typeof obj === 'string';
 }
+
+export const getParentClientSize = ( ref ) => {
+  return [ ref.parentElement.clientWidth, ref.parentElement.clientHeight ];
+}

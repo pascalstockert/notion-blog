@@ -1,14 +1,27 @@
 import { useEffect, useState } from 'react';
-import { isIterable, isString } from '/helpers/utility.helper';
+import { getCardWidth, getParentClientSize, isIterable, isString } from '/helpers/utility.helper';
 
 export const LazyImageModule = ( props ) => {
   const [ imageSrc, setImageSrc ] = useState( '' );
   const [ imageLoaded, setImageLoaded ] = useState( false );
   const [ randomLazyClass, setRandomLazyClass ] = useState( '' );
+  const [ relativeImageHeight, setRelativeImageHeight ] = useState( '384px' );
 
-  const { src, className, height = '384px' } = props;
+  const { src, className, height } = props;
+  const isHeightSet = !!height;
+
+  const setRelativeHeight = ( imageRef ) => {
+    if ( !height ) {
+      const [ containerWidth ] = getParentClientSize( imageRef )
+      const ratio = containerWidth / imageRef.naturalWidth;
+      setRelativeImageHeight( `${ imageRef.naturalHeight * ratio }px` );
+    }
+  }
 
   useEffect( () => {
+    if ( !!height ) {
+      setRelativeImageHeight( height );
+    }
     setRandomLazyClass( `lazy-color-${ Math.max( 1, Math.floor( Math.random() * 10 ) ) }` );
 
     if ( isString( src ) ) {
@@ -21,13 +34,14 @@ export const LazyImageModule = ( props ) => {
 
   return (
     <div className={ `lazy-image ${ randomLazyClass } ${ className } ${ imageLoaded ? 'loaded' : '' }` }
-         style={{ height: height }}>
+         style={{ height: relativeImageHeight }}>
 
       <img src={ imageSrc }
            alt="image"
-           style={{ height: height }}
-           onLoad={ () => {
-             setImageLoaded( true )
+           style={{ height: relativeImageHeight }}
+           onLoad={ ( image ) => {
+             setRelativeHeight( image.target );
+             setImageLoaded( true );
            } } />
 
     </div>
