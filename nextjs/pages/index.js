@@ -1,7 +1,10 @@
 import Head from 'next/head'
 import { LazyImageModule } from '/modules/lazy-image.module';
+import { useState } from 'react';
 
 export default function Home() {
+  const [ cardShown, setCardShown ] = useState( false );
+
   const images = [
     'joey-1',
     'joey-2',
@@ -12,17 +15,22 @@ export default function Home() {
     'landscape-1',
   ].map( image => `/images/${ image }.jpg` );
 
+  const showCard = () => {
+    setCardShown( true );
+  }
+
   return (
     <div className="container">
 
       <p className="p-fixed center-abs z-underneath">loading :)</p>
 
       <div id="card"
-           className="w-100 br-8 shadow z-base loaded">
+           className={ `w-100 br-8 shadow z-base loading${ cardShown ? ' loaded' : '' }` }>
 
         <LazyImageModule src={ images }
                          className="header"
-                         height="384px" />
+                         height="384px"
+                         onLoad={ showCard } />
 
         <div className="p-32">
 

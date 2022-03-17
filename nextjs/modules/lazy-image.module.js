@@ -7,7 +7,7 @@ export const LazyImageModule = ( props ) => {
   const [ randomLazyClass, setRandomLazyClass ] = useState( '' );
   const [ relativeImageHeight, setRelativeImageHeight ] = useState( '384px' );
 
-  const { src, className, height } = props;
+  const { src, className, height, onLoad } = props;
 
   const setRelativeHeight = ( imageRef ) => {
     if ( !height ) {
@@ -39,8 +39,9 @@ export const LazyImageModule = ( props ) => {
            alt="image"
            style={{ height: relativeImageHeight }}
            onLoad={ ( image ) => {
-             setRelativeHeight( image.target );
              setImageLoaded( true );
+             setRelativeHeight( image.target );
+             onLoad ? onLoad() : {};
            } } />
 
     </div>

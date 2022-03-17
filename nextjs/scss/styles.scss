@@ -56,6 +56,17 @@ body {
 
 #card {
   background-color: $base;
+  transition-duration: .3s;
+
+  &.loading {
+    transform: translateY( 24vh ) scale( .8 );
+    opacity: 0;
+  }
+
+  &.loaded {
+    transform: translateY( 0 ) scale( 1 );
+    opacity: 1;
+  }
 }
 
 .post-preview {
