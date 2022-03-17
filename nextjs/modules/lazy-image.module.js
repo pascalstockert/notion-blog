@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCardWidth, getParentClientSize, isIterable, isString } from '/helpers/utility.helper';
+import { getParentClientSize, isString } from '/helpers/utility.helper';
 
 export const LazyImageModule = ( props ) => {
   const [ imageSrc, setImageSrc ] = useState( '' );
@@ -8,7 +8,6 @@ export const LazyImageModule = ( props ) => {
   const [ relativeImageHeight, setRelativeImageHeight ] = useState( '384px' );
 
   const { src, className, height } = props;
-  const isHeightSet = !!height;
 
   const setRelativeHeight = ( imageRef ) => {
     if ( !height ) {
