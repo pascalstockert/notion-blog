@@ -45,6 +45,8 @@ export const getPageTitle = ( page ) => page.properties.Page.title[0].plain_text
 
 export const getPageCover = ( page ) => page.cover.file.url;
 
+export const getPageIceBreaker = ( page ) => page.properties['Ice Breaker'].rich_text[0].plain_text;
+
 // BLOCK INTERACTION //
 
 export const resolveNotionBlock = ( block ) => {

@@ -1,21 +1,27 @@
 import Head from 'next/head';
-import { getPages, getPage, getPageBlocks, getPageTitle, getPageCover, resolveNotionBlock } from '../../helpers/notion.helper';
+import { useState } from 'react';
 import { LazyImageModule } from '../../modules/lazy-image.module';
+import { getPages, getPage, getPageBlocks, getPageTitle, getPageCover, resolveNotionBlock } from '../../helpers/notion.helper';
 
 export default function Post( { page, pageBlocks } ) {
-  console.log( { page, pageBlocks } );
+  const [ cardShown, setCardShown ] = useState( false );
 
   const resolvedBlocks = pageBlocks.map( block => resolveNotionBlock( block ) );
 
+  const showCard = () => setCardShown( true );
+
   return (
-    <div className="container">
+    <div className="container p-y-128">
+
+      <p className="p-fixed center-abs z-underneath">loading :)</p>
 
       <div id="card"
-           className="w-100 br-8 shadow z-base loaded">
+           className={ `w-100 br-8 shadow z-base loading${ cardShown ? ' loaded' : '' }` }>
 
         <LazyImageModule src={ getPageCover( page ) }
                          height={ '256px' }
-                         className="header" />
+                         className="header"
+                         onLoad={ showCard } />
 
         <div className="p-32">
 
@@ -38,7 +44,7 @@ export async function getStaticProps( { params } ) {
 
   return {
     props: { page, pageBlocks: pageBlocks.results },
-    revalidate: 5000,
+    revalidate: 360000,
   };
 
 }

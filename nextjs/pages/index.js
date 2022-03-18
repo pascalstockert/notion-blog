@@ -1,8 +1,10 @@
 import Head from 'next/head'
 import { LazyImageModule } from '/modules/lazy-image.module';
 import { useState } from 'react';
+import { getPages } from '../helpers/notion.helper';
+import PostTeaserModule from '../modules/post-teaser.module';
 
-export default function Home() {
+export default function Home( { latestPages } ) {
   const [ cardShown, setCardShown ] = useState( false );
 
   const images = [
@@ -20,7 +22,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container">
+    <div className="container p-y-128">
 
       <p className="p-fixed center-abs z-underneath">loading :)</p>
 
@@ -54,14 +56,20 @@ export default function Home() {
 
           <h2>My latest posts</h2>
 
-          {/*<div className="post-preview"></div>*/}
-
-          {/*<a href="pages/post.html"
-             className="paragraph text-right load-on-propagate">Show all</a>*/}
+          <PostTeaserModule pages={ latestPages } onClick={ { fn: setCardShown, param: false } } />
 
         </div>
 
       </div>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const latestPages = ( await getPages( 2 ) ).results;
+
+  return {
+    props: { latestPages },
+  };
+
 }
