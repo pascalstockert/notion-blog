@@ -1,0 +1,48 @@
+@import 'colors.module';
+
+@font-face {
+  font-family: 'Quicksand';
+  src: url('../public/quicksand-variable.ttf') format( 'truetype' );
+}
+
+h1 {
+  font-family: 'Times New Roman', serif;
+  font-size: 2.7rem;
+  font-weight: 900;
+  white-space: break-spaces;
+  margin: 0 0 48px;
+  color: $text;
+}
+
+h2 {
+  font-family: Quicksand, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: $text;
+}
+
+h3 {
+  font-family: Quicksand, sans-serif;
+  color: $text;
+}
+
+h4 {
+  font-family: Quicksand, sans-serif;
+  color: $text;
+}
+
+p, span, a {
+  font-family: Quicksand, sans-serif;
+  font-size: 1rem;
+  font-variation-settings: 'wght' 456;
+  line-height: 28px;
+  white-space: break-spaces;
+  max-width: 74ch;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  color: $text;
+}
+
+p + h2 {
+  margin-top: 2em;
+}
