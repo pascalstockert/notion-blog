@@ -58,6 +58,33 @@ export const resolveNotionBlock = ( block ) => {
   }
 };
 
-export const getBlockParagraph = ( block ) => block.paragraph.rich_text[0].plain_text;
+export const getBlockParagraph = ( block ) => {
+  if ( block.paragraph.rich_text.length ) {
+    return block.paragraph.rich_text.map( ( snippet, index ) => {
+      switch ( true ) {
+        case snippet.annotations.bold:
+          return <b key={ block.id + index }>{ snippet.plain_text }</b>;
+        case snippet.annotations.italic:
+          return <i key={ block.id + index }>{ snippet.plain_text }</i>;
+        case snippet.annotations.underline:
+          return <u key={ block.id + index }>{ snippet.plain_text }</u>;
+        case snippet.annotations.code:
+          return <code key={ block.id + index }>{ snippet.plain_text }</code>;
+        default:
+          return snippet.plain_text;
+      }
+    } );
+  }
+  return '\n';
+};
 
 export const getBlockImageUrl = ( block ) => block.image.file.url;
+
+export const getBlockImageNaturalSize = ( block ) => {
+  if ( block.image.caption.length ) {
+    return block.image.caption[ 0 ].plain_text
+      .split( 'x' )
+      .map( stringSize => Number( stringSize ) );
+  }
+  return undefined;
+}

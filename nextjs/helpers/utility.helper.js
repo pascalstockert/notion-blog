@@ -15,5 +15,5 @@ export const isString = ( obj ) => {
 }
 
 export const getParentClientSize = ( ref ) => {
-  return [ ref.parentElement.clientWidth, ref.parentElement.clientHeight ];
+  return [ ref.parentElement?.clientWidth, ref.parentElement?.clientHeight ];
 }
