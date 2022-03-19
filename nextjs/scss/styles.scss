@@ -53,6 +53,7 @@ body {
 }
 
 #card {
+  position: relative;
   background-color: $base;
   transition-duration: .6s;
 
@@ -65,6 +66,86 @@ body {
     transform: scale( 1 );
     opacity: 1;
   }
+
+  .interaction-wrapper {
+    position: fixed;
+    top: calc( 256px + 1rem );
+    right: 100%;
+    display: flex;
+    flex-flow: column;
+    gap: 16px;
+
+    .interaction {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      width: 23px;
+      margin: unset;
+      padding: 8px 16px;
+      border-radius: 8px 0 0 8px;
+      border: 1px solid change-color( colors.$text, $alpha: 0.2 );
+      border-right: 0;
+      background-color: change-color( colors.$text, $alpha: 0.1 );
+      box-shadow: 0 4px 8px 0 change-color( colors.$text, $alpha: 0.1 );
+      overflow: hidden;
+      transition-duration: .3s;
+      cursor: pointer;
+
+      svg {
+        height: 24px;
+        width: 24px;
+      }
+
+      span {
+        margin: unset;
+      }
+
+      &.home {
+        background-color: change-color( colors.$pastel-1, $alpha: 0.5 );
+        border-color: change-color( colors.$pastel-1, $alpha: 0.7 );
+      }
+
+      &:hover, &:focus {
+        width: 100px;
+      }
+
+    }
+
+  }
+
+  .tag-wrapper {
+    position: absolute;
+    top: calc( 256px + 1rem );
+    left: calc( 100% + 45px );
+    display: flex;
+    gap: 16px;
+    transform-origin: top left;
+    transform: rotateZ( 90deg );
+
+    .tag {
+      margin: unset;
+      padding: 8px 16px;
+      border-radius: 8px 8px 0 0;
+      border: 1px solid change-color( colors.$text, $alpha: 0.2 );
+      border-bottom: 0;
+      white-space: nowrap;
+      background-color: change-color( colors.$text, $alpha: 0.1 );
+      box-shadow: 4px 0 8px 0 change-color( colors.$text, $alpha: 0.1 );
+
+      &.little-joey {
+        background-color: change-color( colors.$pastel-1, $alpha: 0.5 );
+        border-color: change-color( colors.$pastel-1, $alpha: 0.7 );
+      }
+
+      &.keyboards {
+        background-color: change-color( colors.$pastel-2, $alpha: 0.5 );
+        border-color: change-color( colors.$pastel-2, $alpha: 0.7 );
+      }
+
+    }
+
+  }
+
 }
 
 .post-teaser {

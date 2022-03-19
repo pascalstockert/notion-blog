@@ -47,6 +47,8 @@ export const getPageCover = ( page ) => page.cover.file.url;
 
 export const getPageIceBreaker = ( page ) => page.properties['Ice Breaker'].rich_text[0].plain_text;
 
+export const getPageTags = ( page ) => page.properties.Tags.multi_select;
+
 // BLOCK INTERACTION //
 
 export const resolveNotionBlock = ( block ) => {

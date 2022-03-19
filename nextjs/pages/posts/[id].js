@@ -1,14 +1,46 @@
 import Head from 'next/head';
+import Link from 'next/link'
 import { useState } from 'react';
 import { LazyImageModule } from '../../modules/lazy-image.module';
-import { getPages, getPage, getPageBlocks, getPageTitle, getPageCover, resolveNotionBlock } from '../../helpers/notion.helper';
+import {
+  getPages,
+  getPage,
+  getPageBlocks,
+  getPageTitle,
+  getPageCover,
+  resolveNotionBlock,
+  getPageTags
+} from '../../helpers/notion.helper';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Post( { page, pageBlocks } ) {
   const [ cardShown, setCardShown ] = useState( false );
 
+  const pageTags = getPageTags( page );
   const resolvedBlocks = pageBlocks.map( block => resolveNotionBlock( block ) );
 
   const showCard = () => setCardShown( true );
+
+  const interactionElements = [
+    <Link key="home"
+          href="/">
+      <a tabIndex="0"
+         className="interaction home">
+        <FontAwesomeIcon icon={ faHome } />
+        <span>Home</span>
+      </a>
+    </Link>
+  ];
+
+  const tagElements = pageTags.map( tag => (
+    <span key={ tag.id }
+          className={ `tag ${ tag.name.toLowerCase().split(' ').join('-') }` }>
+      { tag.name }
+    </span>
+  ) );
 
   return (
     <div className="container p-y-128">
@@ -17,6 +49,14 @@ export default function Post( { page, pageBlocks } ) {
 
       <div id="card"
            className={ `w-100 br-8 shadow z-base loading${ cardShown ? ' loaded' : '' }` }>
+
+        <div className="interaction-wrapper">
+          { interactionElements }
+        </div>
+
+        <div className="tag-wrapper">
+          { tagElements }
+        </div>
 
         <LazyImageModule src={ getPageCover( page ) }
                          height={ '256px' }
