@@ -1,0 +1,14 @@
+name: Deploy to Vercel Hosting on merge
+'on':
+  push:
+    branches:
+      - deploy
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: 'https://api.vercel.com/v1/integrations/deploy/${{ secrets.VERCEL_PROJECT_ID }}'
+          method: 'GET'
