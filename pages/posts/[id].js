@@ -84,7 +84,7 @@ export async function getStaticProps( { params } ) {
 
   return {
     props: { page, pageBlocks: pageBlocks.results },
-    revalidate: 360000,
+    revalidate: 30000,
   };
 
 }
