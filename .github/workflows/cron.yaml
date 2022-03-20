@@ -10,4 +10,4 @@ jobs:
       - name: Call revalidation route
         run: |
           curl --request GET \
-          --url 'https://yoursite.com/api/revalidate?secret=${{ secrets.REVALIDATE_SECRET }}''
+          --url 'https://yoursite.com/api/revalidate?secret=${{ secrets.REVALIDATE_SECRET }}'
