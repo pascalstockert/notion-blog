@@ -16,7 +16,6 @@ export function ScrollArea( props ) {
     const [ areaScrollHeight ] = getScrollDimensions( area );
     const [ wrapperScrollHeight ] = getScrollDimensions( wrapper );
 
-    console.log({wrapperScrollHeight, areaScrollHeight})
 
     setScrollbarHeight( `${ ( wrapperScrollHeight / areaScrollHeight ) * 100 }%` )
 
@@ -31,6 +30,11 @@ export function ScrollArea( props ) {
   }
 
   useEffect( () => {
+    window.addEventListener( 'resize', () => {
+      scrollbarSetup();
+      handleScroll();
+    } );
+
     scrollbarSetup();
   }, [ props ] );
 
