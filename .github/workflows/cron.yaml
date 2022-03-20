@@ -10,4 +10,8 @@ jobs:
       - name: Call revalidation route
         run: |
           curl --request GET \
+<<<<<<< Updated upstream
           --url 'https://yoursite.com/api/revalidate?secret=${{ secrets.REVALIDATE_SECRET }}''
+=======
+          --url 'https://blog.pasu.me/api/revalidate?secret=${{ secrets.REVALIDATE_SECRET }}'
+>>>>>>> Stashed changes
