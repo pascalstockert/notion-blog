@@ -19,9 +19,7 @@ export function ScrollArea( props ) {
     const [ areaScrollHeight ] = getScrollDimensions( area );
     const [ wrapperScrollHeight ] = getScrollDimensions( wrapper );
 
-
     setScrollbarHeight( `${ ( wrapperScrollHeight / areaScrollHeight ) * 100 }%` )
-
   }
 
   const handleScroll = () => {
