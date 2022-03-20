@@ -2,6 +2,16 @@
 
 @import 'typography';
 
+// SCROLLBAR //
+html, .scroll-area {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 // BASE STYLING //
 
 html {
@@ -14,6 +24,36 @@ body {
 }
 
 // COMPONENTS //
+
+.scroll-area {
+  position: relative;
+  height: 100vh;
+  overflow: scroll;
+
+  .scrollbar-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: calc( 100% - 32px );
+    padding: 16px;
+
+    .scrollbar {
+      width: 8px;
+      height: 256px;
+      border-radius: 4px;
+      background-color: change-color( colors.$text, $alpha: 0.5 );
+      transition: height .3s ease-out;
+      cursor: pointer;
+
+      &:hover {
+        background-color: colors.$text;
+      }
+
+    }
+
+  }
+
+}
 
 .lazy-image {
   position: relative;

@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome
 } from "@fortawesome/free-solid-svg-icons";
+import { ScrollArea } from '../../modules/scroll-area.module';
 
 export default function Post( { page, pageBlocks } ) {
   const [ cardShown, setCardShown ] = useState( false );
@@ -43,36 +44,41 @@ export default function Post( { page, pageBlocks } ) {
   ) );
 
   return (
-    <div className="container p-y-128">
+    <ScrollArea>
 
-      <p className="p-fixed center-abs z-underneath">loading :)</p>
+      <div className="container p-y-128">
 
-      <div id="card"
-           className={ `w-100 br-8 shadow z-base loading${ cardShown ? ' loaded' : '' }` }>
+        <p className="p-fixed center-abs z-underneath">loading :)</p>
 
-        <div className="interaction-wrapper">
-          { interactionElements }
-        </div>
+        <div id="card"
+             className={ `w-100 br-8 shadow z-base loading${ cardShown ? ' loaded' : '' }` }>
 
-        <div className="tag-wrapper">
-          { tagElements }
-        </div>
+          <div className="interaction-wrapper">
+            { interactionElements }
+          </div>
 
-        <LazyImageModule src={ getPageCover( page ) }
-                         height={ '256px' }
-                         className="header"
-                         onLoad={ showCard } />
+          <div className="tag-wrapper">
+            { tagElements }
+          </div>
 
-        <div className="p-32">
+          <LazyImageModule src={ getPageCover( page ) }
+                           height={ '256px' }
+                           className="header"
+                           onLoad={ showCard } />
 
-          <h1>{ getPageTitle( page ) }</h1>
+          <div className="p-32">
 
-          { resolvedBlocks }
+            <h1>{ getPageTitle( page ) }</h1>
+
+            { resolvedBlocks }
+
+          </div>
 
         </div>
 
       </div>
-    </div>
+
+    </ScrollArea>
   );
 }
 
