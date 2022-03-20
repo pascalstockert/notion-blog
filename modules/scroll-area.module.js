@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { getInnerDimensions, getScrollDimensions } from '../helpers/utility.helper';
 
+// TODO hide scrollbar when areaScrollHeight <= wrapperScrollHeight
+// TODO hide scrollbar when it's not being used
+// TODO re-show scrollbar when it's being used or cursor comes close
 export function ScrollArea( props ) {
   const { children } = props;
 
