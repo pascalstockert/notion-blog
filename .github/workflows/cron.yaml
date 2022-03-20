@@ -1,0 +1,13 @@
+name: revalidate-after-30-mins
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call revalidation route
+        run: |
+          curl --request GET \
+          --url 'https://yoursite.com/api/revalidate?secret=${{ secrets.REVALIDATE_SECRET }}''
