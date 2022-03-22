@@ -74,6 +74,7 @@ export async function getStaticProps() {
 
   return {
     props: { latestPages },
+    revalidate: 30000,
   };
 
 }
