@@ -35,7 +35,7 @@ body {
     top: 0;
     right: 0;
     height: calc( 100% - 32px );
-    padding: 16px;
+    padding: 16px 16px 16px 64px;
 
     .scrollbar {
       width: 8px;
@@ -44,15 +44,21 @@ body {
       background-color: change-color( colors.$text, $alpha: 0.5 );
       transition: height .1s, background-color .3s;
       cursor: pointer;
+    }
 
-      &.hidden {
-        background-color: transparent;
+    &.hidden .scrollbar {
+      background-color: transparent;
+    }
+
+    &:hover {
+      .scrollbar {
+        background-color: change-color( colors.$text, $alpha: 0.5 );
+
+        &:hover {
+          background-color: colors.$text;
+        }
+
       }
-
-      &:hover {
-        background-color: colors.$text;
-      }
-
     }
 
   }

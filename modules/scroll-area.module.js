@@ -1,15 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { getInnerDimensions, getScrollDimensions, Timer } from '../helpers/utility.helper';
 
-// TODO hide scrollbar when areaScrollHeight <= wrapperScrollHeight
-// TODO hide scrollbar when it's not being used
-// TODO re-show scrollbar when it's being used or cursor comes close
+// TODO make scrollbar draggable
 export function ScrollArea( props ) {
   const { children } = props;
 
   const [ scrollbarHeight, setScrollbarHeight ] = useState( '0px' );
   const [ scrollbarOffset, setScrollbarOffset ] = useState( '0px' );
   const [ scrollbarVisibility, setScrollbarVisibility ] = useState( true );
+  const [ isUserDragging, setIsUserDragging ] = useState( false );
 
   const areaRef = useRef();
   const wrapperRef = useRef();
@@ -56,11 +55,11 @@ export function ScrollArea( props ) {
          onScroll={ handleScroll }>
 
       <div ref={ wrapperRef }
-           className="scrollbar-wrapper">
+           className={ `scrollbar-wrapper${ scrollbarVisibility ? '' : ' hidden' }` } >
 
         <div ref={ scrollbarRef }
              style={{ height: scrollbarHeight, marginTop: scrollbarOffset }}
-             className={ `scrollbar${ scrollbarVisibility ? '' : ' hidden' }` } />
+             className="scrollbar" />
 
       </div>
 
