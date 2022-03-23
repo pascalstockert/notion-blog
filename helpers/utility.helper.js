@@ -32,3 +32,61 @@ export const getInnerDimensions = ( node ) => {
 
   return [ height, width ];
 }
+
+export class Timer {
+  ticks;
+  active = false;
+  currentMs = 0;
+  interval;
+
+  _callbacks = {};
+
+  constructor ( interval = 3000 ) {
+    this.interval = interval;
+    this.ticks = setInterval( this.tick, 10 );
+  }
+
+  tick = () => {
+    if ( this.active ) {
+      this.currentMs += 10;
+
+      if ( this.currentMs % this.interval === 0 ) {
+        this.currentMs = 0;
+
+        Object.keys( this._callbacks ).forEach( key => {
+          this._callbacks[ key ]();
+        } );
+
+      }
+
+    }
+  }
+
+  addCallback = ( key, callback ) => {
+    this._callbacks[ key ] = callback;
+    return this;
+  }
+
+  removeCallback = ( key ) => {
+    if ( key in this._callbacks ) {
+      delete this._callbacks[key];
+    }
+  }
+
+  start = () => {
+    this.active = true;
+    return this;
+  }
+
+  stop = () => {
+    this.active = false;
+    return this;
+  }
+
+  reset = () => {
+    this.currentMs = 0;
+    return this;
+  }
+
+  kill = () => { clearInterval( this.ticks ); }
+}

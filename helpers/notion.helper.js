@@ -31,7 +31,7 @@ export const getPage = ( id ) => {
   return notionClient.pages.retrieve( {
     page_id: id
   } );
-}
+};
 
 export const getPageBlocks = ( id ) => {
   return notionClient.blocks.children.list( {
@@ -48,6 +48,8 @@ export const getPageCover = ( page ) => page.cover.file.url;
 export const getPageIceBreaker = ( page ) => page.properties['Ice Breaker'].rich_text[0].plain_text;
 
 export const getPageTags = ( page ) => page.properties.Tags.multi_select;
+
+export const getPageSlug = ( page ) => page.properties.Slug.rich_text[0].plain_text;
 
 // BLOCK INTERACTION //
 
