@@ -8,7 +8,6 @@ export function ScrollArea( props ) {
   const [ scrollbarHeight, setScrollbarHeight ] = useState( '0px' );
   const [ scrollbarOffset, setScrollbarOffset ] = useState( '0px' );
   const [ scrollbarVisibility, setScrollbarVisibility ] = useState( true );
-  const [ isUserDragging, setIsUserDragging ] = useState( false );
 
   const areaRef = useRef();
   const wrapperRef = useRef();
