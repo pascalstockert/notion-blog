@@ -60,8 +60,9 @@ export const resolveNotionBlock = ( block ) => {
   }
 };
 
-export const wrapBlockInHref = ( block, url ) => {
-  return <a href={ url }>{ block }</a>;
+export const wrapBlockInHref = ( block, url, key = null ) => {
+  return <a key={ key ? key : null }
+            href={ url }>{ block }</a>;
 }
 
 export const getBlockParagraph = ( block ) => {
@@ -86,7 +87,7 @@ export const getBlockParagraph = ( block ) => {
       }
 
       if ( snippet.href ) {
-        snippetBlock = wrapBlockInHref( snippetBlock, snippet.href );
+        snippetBlock = wrapBlockInHref( snippetBlock, snippet.href, block.id + index );
       }
 
       return snippetBlock;
