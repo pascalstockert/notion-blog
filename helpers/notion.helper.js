@@ -60,21 +60,36 @@ export const resolveNotionBlock = ( block ) => {
   }
 };
 
+export const wrapBlockInHref = ( block, url ) => {
+  return <a href={ url }>{ block }</a>;
+}
+
 export const getBlockParagraph = ( block ) => {
   if ( block.paragraph.rich_text.length ) {
     return block.paragraph.rich_text.map( ( snippet, index ) => {
+      let snippetBlock;
       switch ( true ) {
         case snippet.annotations.bold:
-          return <b key={ block.id + index }>{ snippet.plain_text }</b>;
+          snippetBlock = <b key={ block.id + index }>{ snippet.plain_text }</b>;
+          break;
         case snippet.annotations.italic:
-          return <i key={ block.id + index }>{ snippet.plain_text }</i>;
+          snippetBlock = <i key={ block.id + index }>{ snippet.plain_text }</i>;
+          break;
         case snippet.annotations.underline:
-          return <u key={ block.id + index }>{ snippet.plain_text }</u>;
+          snippetBlock = <u key={ block.id + index }>{ snippet.plain_text }</u>;
+          break;
         case snippet.annotations.code:
-          return <code key={ block.id + index }>{ snippet.plain_text }</code>;
+          snippetBlock = <code key={ block.id + index }>{ snippet.plain_text }</code>;
+          break;
         default:
-          return snippet.plain_text;
+          snippetBlock = snippet.plain_text;
       }
+
+      if ( snippet.href ) {
+        snippetBlock = wrapBlockInHref( snippetBlock, snippet.href );
+      }
+
+      return snippetBlock;
     } );
   }
   return '\n';
