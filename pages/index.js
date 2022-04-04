@@ -36,7 +36,8 @@ export default function Home( { latestPages } ) {
                            height="384px"
                            onLoad={ showCard } />
 
-          <div className="p-32">
+
+        <div className="body">
 
             <h1>Hello 👋</h1>
 

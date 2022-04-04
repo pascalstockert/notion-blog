@@ -196,6 +196,11 @@ body {
 
   }
 
+  .body {
+    max-width: calc( 74ch + 128px );
+    padding: 32px;
+  }
+
 }
 
 .post-teaser {
@@ -224,6 +229,8 @@ body {
     }
 
     img {
+      height: 96px;
+      width: 96px;
       border-radius: 8px;
       object-fit: cover;
     }

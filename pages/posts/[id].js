@@ -66,7 +66,7 @@ export default function Post( { page, pageBlocks } ) {
                            className="header"
                            onLoad={ showCard } />
 
-          <div className="p-32">
+        <div className="body">
 
             <h1>{ getPageTitle( page ) }</h1>
 
