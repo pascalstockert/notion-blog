@@ -50,12 +50,16 @@ export default function Post( { page, pageBlocks } ) {
       <div id="card"
            className={ `w-100 br-8 shadow z-base loading${ cardShown ? ' loaded' : '' }` }>
 
-        <div className="interaction-wrapper">
-          { interactionElements }
-        </div>
+        <div className="nav-wrapper">
 
-        <div className="tag-wrapper">
-          { tagElements }
+          <div className="interaction-wrapper">
+            { interactionElements }
+          </div>
+
+          <div className="tag-wrapper">
+            { tagElements }
+          </div>
+
         </div>
 
         <LazyImageModule src={ getPageCover( page ) }
