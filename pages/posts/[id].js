@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LazyImageModule } from '../../modules/lazy-image.module';
 import {
   getPages,
@@ -11,6 +11,7 @@ import {
   resolveNotionBlock,
   getPageTags
 } from '../../helpers/notion.helper';
+import { $windowScrollEventHook } from '../../helpers/event.helper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome
@@ -18,6 +19,15 @@ import {
 
 export default function Post( { page, pageBlocks } ) {
   const [ cardShown, setCardShown ] = useState( false );
+  const [ scrollValue, setScrollValue ] = useState( 0 );
+
+  useEffect( () => {
+    $windowScrollEventHook().subscribe( ([ scrollHeight ]) => {
+      // TODO add && show simplistic side-menu at specific height
+      console.log({scrollHeight})
+      setScrollValue( scrollHeight )
+    } );
+  }, [] );
 
   const pageTags = getPageTags( page );
   const resolvedBlocks = pageBlocks.map( block => resolveNotionBlock( block ) );
