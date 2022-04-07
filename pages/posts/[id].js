@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LazyImageModule } from '../../modules/lazy-image.module';
 import {
   getPages,
@@ -11,13 +11,22 @@ import {
   resolveNotionBlock,
   getPageTags
 } from '../../helpers/notion.helper';
+import { $windowScrollEventHook } from '../../helpers/event.helper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome
 } from "@fortawesome/free-solid-svg-icons";
+import SideNavModule from '../../modules/side-nav.module';
 
 export default function Post( { page, pageBlocks } ) {
   const [ cardShown, setCardShown ] = useState( false );
+  const [ scrollValue, setScrollValue ] = useState( 0 );
+
+  useEffect( () => {
+    $windowScrollEventHook().subscribe( ([ scrollHeight ]) => {
+      setScrollValue( scrollHeight )
+    } );
+  }, [] );
 
   const pageTags = getPageTags( page );
   const resolvedBlocks = pageBlocks.map( block => resolveNotionBlock( block ) );
@@ -45,17 +54,23 @@ export default function Post( { page, pageBlocks } ) {
   return (
     <div className="container p-y-128">
 
+      <SideNavModule hidden={ !( scrollValue >= 200 ) } />
+
       <p className="p-fixed center-abs z-underneath">loading :)</p>
 
       <div id="card"
            className={ `w-100 br-8 shadow z-base loading${ cardShown ? ' loaded' : '' }` }>
 
-        <div className="interaction-wrapper">
-          { interactionElements }
-        </div>
+        <div className="nav-wrapper">
 
-        <div className="tag-wrapper">
-          { tagElements }
+          <div className="interaction-wrapper">
+            { interactionElements }
+          </div>
+
+          <div className="tag-wrapper">
+            { tagElements }
+          </div>
+
         </div>
 
         <LazyImageModule src={ getPageCover( page ) }

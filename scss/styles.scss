@@ -52,6 +52,77 @@ body {
   }
 }
 
+.interaction-wrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 16px;
+
+  .interaction {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 23px;
+    margin: unset;
+    padding: 8px 16px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid change-color( colors.$text, $alpha: 0.2 );
+    border-bottom: 0;
+    background-color: change-color( colors.$text, $alpha: 0.1 );
+    box-shadow: 0 4px 8px 0 change-color( colors.$text, $alpha: 0.1 );
+    overflow: hidden;
+    transition-duration: .3s;
+    cursor: pointer;
+
+    svg {
+      height: 24px;
+      width: 24px;
+    }
+
+    span {
+      margin: unset;
+    }
+
+    &.home {
+      background-color: change-color( colors.$pastel-8, $alpha: 0.5 );
+      border-color: change-color( colors.$pastel-8, $alpha: 0.7 );
+    }
+
+    &:hover, &:focus {
+      width: 100px;
+    }
+
+  }
+
+}
+
+.tag-wrapper {
+  display: flex;
+  gap: 16px;
+
+  .tag {
+    margin: unset;
+    padding: 8px 16px;
+    border-radius: 8px 8px 0 0;
+    border: 1px solid change-color( colors.$text, $alpha: 0.2 );
+    border-bottom: 0;
+    white-space: nowrap;
+    background-color: change-color( colors.$text, $alpha: 0.1 );
+    box-shadow: 4px 0 8px 0 change-color( colors.$text, $alpha: 0.1 );
+
+    &.little-joey {
+      background-color: change-color( colors.$pastel-1, $alpha: 0.5 );
+      border-color: change-color( colors.$pastel-1, $alpha: 0.7 );
+    }
+
+    &.keyboards {
+      background-color: change-color( colors.$pastel-2, $alpha: 0.5 );
+      border-color: change-color( colors.$pastel-2, $alpha: 0.7 );
+    }
+
+  }
+
+}
+
 #card {
   position: relative;
   background-color: $base;
@@ -67,83 +138,14 @@ body {
     opacity: 1;
   }
 
-  .interaction-wrapper {
-    position: fixed;
-    top: calc( 256px + 1rem );
-    right: 100%;
-    display: flex;
-    flex-flow: column;
-    gap: 16px;
-
-    .interaction {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      width: 23px;
-      margin: unset;
-      padding: 8px 16px;
-      border-radius: 8px 0 0 8px;
-      border: 1px solid change-color( colors.$text, $alpha: 0.2 );
-      border-right: 0;
-      background-color: change-color( colors.$text, $alpha: 0.1 );
-      box-shadow: 0 4px 8px 0 change-color( colors.$text, $alpha: 0.1 );
-      overflow: hidden;
-      transition-duration: .3s;
-      cursor: pointer;
-
-      svg {
-        height: 24px;
-        width: 24px;
-      }
-
-      span {
-        margin: unset;
-      }
-
-      &.home {
-        background-color: change-color( colors.$pastel-1, $alpha: 0.5 );
-        border-color: change-color( colors.$pastel-1, $alpha: 0.7 );
-      }
-
-      &:hover, &:focus {
-        width: 100px;
-      }
-
-    }
-
-  }
-
-  .tag-wrapper {
+  .nav-wrapper {
+    box-sizing: border-box;
     position: absolute;
-    top: calc( 256px + 1rem );
-    left: calc( 100% + 45px );
     display: flex;
-    gap: 16px;
-    transform-origin: top left;
-    transform: rotateZ( 90deg );
-
-    .tag {
-      margin: unset;
-      padding: 8px 16px;
-      border-radius: 8px 8px 0 0;
-      border: 1px solid change-color( colors.$text, $alpha: 0.2 );
-      border-bottom: 0;
-      white-space: nowrap;
-      background-color: change-color( colors.$text, $alpha: 0.1 );
-      box-shadow: 4px 0 8px 0 change-color( colors.$text, $alpha: 0.1 );
-
-      &.little-joey {
-        background-color: change-color( colors.$pastel-1, $alpha: 0.5 );
-        border-color: change-color( colors.$pastel-1, $alpha: 0.7 );
-      }
-
-      &.keyboards {
-        background-color: change-color( colors.$pastel-2, $alpha: 0.5 );
-        border-color: change-color( colors.$pastel-2, $alpha: 0.7 );
-      }
-
-    }
-
+    width: 100%;
+    padding: 0 8px;
+    justify-content: space-between;
+    transform: translateY( -100% );
   }
 
   .body {
@@ -280,6 +282,37 @@ body {
 
 }
 
+.side-nav-wrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 8px;
+  position: fixed;
+  top: 50%;
+  left: 32px;
+  transform: translateY( -50% );
+  transition-duration: .3s;
+
+  &.hidden {
+    opacity: 0;
+
+    .icon-wrapper {
+      transition-duration: .2s;
+      box-shadow: 0 0 0 0 transparent;
+    }
+
+  }
+
+  .icon-wrapper {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid change-color( colors.$text, $alpha: .1 );
+    background-color: change-color( colors.$text, $alpha: .05 );
+    box-shadow: 0 4px 8px 0 change-color( colors.$text, $alpha: 0.1 );
+    cursor: pointer;
+  }
+
+}
+
 // UTILITY //
 
 .container {
@@ -296,6 +329,8 @@ body {
   }
 }
 
+.border-box { box-sizing: border-box; }
+
 .d {
   &-none { display: none; }
   &-flex { display: flex; }
@@ -307,7 +342,7 @@ body {
   &-16 { gap: 16px; }
 }
 
-.center{
+.center {
   &-x { justify-content: center; }
   &-y { align-items: center; }
   &-x-y { justify-content:center; align-items: center; }
@@ -317,6 +352,10 @@ body {
 .flow {
   &-row { flex-flow: row; }
   &-col { flex-flow: column; }
+}
+
+.justify-content {
+  &-between { justify-content: space-between; }
 }
 
 .h {
@@ -337,6 +376,7 @@ body {
   &-8 { padding: 8px; }
   &-16 { padding: 16px; }
   &-32 { padding: 32px; }
+  &-x-8 { padding: 0 8px; }
   &-y-128 { padding: 128px 0; }
 
   &-absolute { position: absolute; }
