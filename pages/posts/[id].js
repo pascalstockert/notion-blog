@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome
 } from "@fortawesome/free-solid-svg-icons";
+import SideNavModule from '../../modules/side-nav.module';
 
 export default function Post( { page, pageBlocks } ) {
   const [ cardShown, setCardShown ] = useState( false );
@@ -23,8 +24,6 @@ export default function Post( { page, pageBlocks } ) {
 
   useEffect( () => {
     $windowScrollEventHook().subscribe( ([ scrollHeight ]) => {
-      // TODO add && show simplistic side-menu at specific height
-      console.log({scrollHeight})
       setScrollValue( scrollHeight )
     } );
   }, [] );
@@ -54,6 +53,8 @@ export default function Post( { page, pageBlocks } ) {
 
   return (
     <div className="container p-y-128">
+
+      <SideNavModule hidden={ !( scrollValue >= 200 ) } />
 
       <p className="p-fixed center-abs z-underneath">loading :)</p>
 

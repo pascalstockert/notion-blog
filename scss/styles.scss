@@ -282,6 +282,37 @@ body {
 
 }
 
+.side-nav-wrapper {
+  display: flex;
+  flex-flow: column;
+  gap: 8px;
+  position: fixed;
+  top: 50%;
+  left: 32px;
+  transform: translateY( -50% );
+  transition-duration: .3s;
+
+  &.hidden {
+    opacity: 0;
+
+    .icon-wrapper {
+      transition-duration: .2s;
+      box-shadow: 0 0 0 0 transparent;
+    }
+
+  }
+
+  .icon-wrapper {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid change-color( colors.$text, $alpha: .1 );
+    background-color: change-color( colors.$text, $alpha: .05 );
+    box-shadow: 0 4px 8px 0 change-color( colors.$text, $alpha: 0.1 );
+    cursor: pointer;
+  }
+
+}
+
 // UTILITY //
 
 .container {
