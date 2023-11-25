@@ -5,6 +5,7 @@ import { getPages } from '../helpers/notion.helper';
 import PostTeaserModule from '../modules/post-teaser.module';
 
 export default function Home( { latestPages } ) {
+  console.log(latestPages);
   const [ cardShown, setCardShown ] = useState( false );
 
   const images = [
@@ -66,11 +67,11 @@ export default function Home( { latestPages } ) {
 }
 
 export async function getStaticProps() {
-  const latestPages = ( await getPages( 2 ) ).results;
+  const latestPages = ( await getPages( 3 ) ).results;
 
   return {
     props: { latestPages },
-    revalidate: 30000,
+    revalidate: 1800,
   };
 
 }
